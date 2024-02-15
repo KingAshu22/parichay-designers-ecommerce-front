@@ -152,13 +152,13 @@ export default function AccountPage() {
                     {orderLoaded && (
                       <div>
                         {orders.length > 0 &&
-                          orders.map((o) => <SingleOrder {...o} />)}
+                          orders.map((o) => <SingleOrder key={o._id} {...o} />)}
                       </div>
                     )}
                     {orders.length === 0 && (
                       <>
                         {session && (
-                          <p>You didn't ordered something from us.</p>
+                          <p>You didn&apos;t ordered something from us.</p>
                         )}
                         {!session && <p>Login to view your orders</p>}
                       </>
