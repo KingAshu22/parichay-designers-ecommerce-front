@@ -9,6 +9,8 @@ import { useSession } from "next-auth/react";
 import { RevealWrapper } from "next-reveal";
 import { useContext, useEffect, useState } from "react";
 import { styled } from "styled-components";
+import PayButton from "@/components/PayButton";
+import { useRouter } from "next/router";
 
 const ColumnsWrapper = styled.div`
   display: grid;
@@ -69,6 +71,7 @@ const CityHolder = styled.div`
 `;
 
 export default function CartPage() {
+  const router = useRouter();
   const { data: session } = useSession();
   const { cartProducts, addProduct, removeProduct, clearCart } =
     useContext(CartContext);
@@ -81,6 +84,7 @@ export default function CartPage() {
   const [postalCode, setPostalCode] = useState("");
   const [country, setCountry] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isFail, setIsFail] = useState(false);
 
   useEffect(() => {
     if (cartProducts.length > 0) {
@@ -97,11 +101,14 @@ export default function CartPage() {
       return;
     }
 
-    if (window?.location.href.includes("success")) {
+    if (router.query.success === "1") {
       setIsSuccess(true);
       clearCart();
     }
-  }, []);
+    if (router.query.fail === "1") {
+      setIsFail(true);
+    }
+  }, [router.query.success]);
 
   useEffect(() => {
     if (!session) {
@@ -126,23 +133,6 @@ export default function CartPage() {
     removeProduct(id);
   }
 
-  async function goToPayment() {
-    const response = await axios.post("/api/checkout", {
-      name,
-      email,
-      mobile,
-      streetAddress,
-      city,
-      postalCode,
-      country,
-      cartProducts,
-    });
-
-    if (response.data.url) {
-      window.location = response.data.url;
-    }
-  }
-
   let total = 0;
   for (const productId of cartProducts) {
     const price = products.find((p) => p._id === productId)?.price || 0;
@@ -158,6 +148,22 @@ export default function CartPage() {
             <Box>
               <h1>Thanks for your Order!</h1>
               <p>We will email you all the further details for your order</p>
+            </Box>
+          </ColumnsWrapper>
+        </Center>
+      </>
+    );
+  }
+
+  if (isFail) {
+    return (
+      <>
+        <Header />
+        <Center>
+          <ColumnsWrapper>
+            <Box>
+              <h1>Payment Not Completed</h1>
+              <p>Please complete the payment to place your order</p>
             </Box>
           </ColumnsWrapper>
         </Center>
@@ -286,9 +292,18 @@ export default function CartPage() {
                   name="country"
                   onChange={(ev) => setCountry(ev.target.value)}
                 />
-                <Button black block onClick={goToPayment}>
-                  Continue to Payment
-                </Button>
+                <PayButton
+                  amount={total}
+                  name={name}
+                  email={email}
+                  mobile={mobile}
+                  streetAddress={streetAddress}
+                  city={city}
+                  postalCode={postalCode}
+                  country={country}
+                  cartProducts={cartProducts}
+                  key_id={process.env.RAZORPAY_KEY_ID}
+                />
               </Box>
             </RevealWrapper>
           )}

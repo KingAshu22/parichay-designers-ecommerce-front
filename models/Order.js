@@ -11,7 +11,7 @@ const OrderSchema = new Schema(
     city: String,
     postalCode: String,
     country: String,
-    paid: Boolean,
+    orderId: String,
   },
   {
     timestamps: true,
