@@ -4,8 +4,6 @@ import { Product } from "@/models/Product";
 import shortid from "shortid";
 const Razorpay = require("razorpay");
 
-shortid.characters("01234567890");
-
 export default async function handle(req, res) {
   const {
     amount,
