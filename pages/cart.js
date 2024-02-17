@@ -11,6 +11,7 @@ import { useContext, useEffect, useState } from "react";
 import { styled } from "styled-components";
 import PayButton from "@/components/PayButton";
 import { useRouter } from "next/router";
+import BottomNav from "@/components/BottomNav";
 
 const ColumnsWrapper = styled.div`
   display: grid;
@@ -142,7 +143,12 @@ export default function CartPage() {
   if (isSuccess) {
     return (
       <>
-        <Header />
+        <div className="desktop-header">
+          <Header />
+        </div>
+        <div className="mobile-bottom-nav">
+          <BottomNav />
+        </div>
         <Center>
           <ColumnsWrapper>
             <Box>
@@ -158,7 +164,12 @@ export default function CartPage() {
   if (isFail) {
     return (
       <>
-        <Header />
+        <div className="desktop-header">
+          <Header />
+        </div>
+        <div className="mobile-bottom-nav">
+          <BottomNav />
+        </div>
         <Center>
           <ColumnsWrapper>
             <Box>
@@ -173,7 +184,12 @@ export default function CartPage() {
 
   return (
     <>
-      <Header />
+      <div className="desktop-header">
+        <Header />
+      </div>
+      <div className="mobile-bottom-nav">
+        <BottomNav />
+      </div>
       <Center>
         <ColumnsWrapper>
           <RevealWrapper delay={0}>

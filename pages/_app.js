@@ -1,6 +1,5 @@
 import { CartContextProvider } from "@/components/CartContext";
 import { createGlobalStyle } from "styled-components";
-import { Helmet } from "react-helmet";
 import { SessionProvider } from "next-auth/react";
 
 const GlobalStyles = createGlobalStyle`
@@ -15,6 +14,24 @@ const GlobalStyles = createGlobalStyle`
     border: 0;
     border-top: 1px solid #ccc;
   }
+
+  .desktop-header {
+  display: none;
+}
+
+.mobile-bottom-nav {
+  display: block;
+}
+
+@media (min-width: 768px) { // Adjust the breakpoint as needed
+  .desktop-header {
+    display: block;
+  }
+
+  .mobile-bottom-nav {
+    display: none;
+  }
+}
 `;
 
 export default function App({

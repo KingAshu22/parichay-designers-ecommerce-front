@@ -6,6 +6,7 @@ import { Product } from "@/models/Product";
 import { WishedProduct } from "@/models/WishedProduct";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]";
+import BottomNav from "@/components/BottomNav";
 
 export default function HomePage({
   featueredProduct,
@@ -14,7 +15,12 @@ export default function HomePage({
 }) {
   return (
     <div>
-      <Header />
+      <div className="desktop-header">
+        <Header />
+      </div>
+      <div className="mobile-bottom-nav">
+        <BottomNav />
+      </div>
       <Featured product={featueredProduct} />
       <NewProducts products={newProducts} WishedProducts={wishedNewProducts} />
     </div>

@@ -7,11 +7,17 @@ import { Product } from "@/models/Product";
 import { WishedProduct } from "@/models/WishedProduct";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]";
+import BottomNav from "@/components/BottomNav";
 
 export default function ProductsPage({ products, wishedProducts }) {
   return (
     <>
-      <Header />
+      <div className="desktop-header">
+        <Header />
+      </div>
+      <div className="mobile-bottom-nav">
+        <BottomNav />
+      </div>
       <Center>
         <Title>All Products</Title>
         <ProductsGrid products={products} wishedProducts={wishedProducts} />

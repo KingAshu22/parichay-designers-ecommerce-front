@@ -10,6 +10,7 @@ import Link from "next/link";
 import { styled } from "styled-components";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { WishedProduct } from "@/models/WishedProduct";
+import BottomNav from "@/components/BottomNav";
 
 const CategoryGrid = styled.div`
   display: grid;
@@ -58,7 +59,12 @@ export default function CategoriesPage({
 }) {
   return (
     <>
-      <Header />
+      <div className="desktop-header">
+        <Header />
+      </div>
+      <div className="mobile-bottom-nav">
+        <BottomNav />
+      </div>
       <Center>
         <Title>All Categories</Title>
         {mainCategories.map((cat) => (
