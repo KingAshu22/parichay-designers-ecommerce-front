@@ -64,9 +64,15 @@ export default function PayButton({
       order_id: data.id,
       description: "Thank you for your Order",
       image: "https://manuarora.in/logo.png",
-      handler: function (response) {
-        setIsPaymentSuccess(true);
-        router.push("/cart?success=1");
+      handler: async function (response) {
+        const body = { ...response };
+        const res = await axios.post("/api/validate", body);
+        if (res.data.msg === "Success") {
+          setIsPaymentSuccess(true);
+          router.push("/cart?success=1");
+        } else {
+          router.push("/cart?failure=1");
+        }
       },
       prefill: {
         name,

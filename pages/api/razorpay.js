@@ -65,7 +65,7 @@ export default async function handle(req, res) {
     const orderId = response.id;
 
     // Create order in MongoDB
-    const orderDoc = await Order.create({
+    await Order.create({
       line_items,
       name,
       email,

@@ -105,7 +105,7 @@ export default function CartPage() {
       setIsSuccess(true);
       clearCart();
     }
-    if (router.query.fail === "1") {
+    if (router.query.failure === "1") {
       setIsFail(true);
     }
   }, [router.query.success]);
