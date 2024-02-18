@@ -69,9 +69,9 @@ export default function PayButton({
         const res = await axios.post("/api/validate", body);
         if (res.data.msg === "Success") {
           setIsPaymentSuccess(true);
-          router.push("/cart?success=1");
+          router.push("/bag?success=1");
         } else {
-          router.push("/cart?failure=1");
+          router.push("/bag?failure=1");
         }
       },
       prefill: {
