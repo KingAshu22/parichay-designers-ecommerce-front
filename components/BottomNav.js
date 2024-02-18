@@ -11,7 +11,7 @@ import CartIcon from "./icons/CartIcon";
 import { useRouter } from "next/router";
 import CategoryIcon from "./icons/CategoryIcon";
 import { useSession } from "next-auth/react";
-import Head from "next/head"; // Import Head component from next/head
+import Head from "next/head";
 
 const StyledHeader = styled.header`
   background-color: #222;
@@ -68,10 +68,8 @@ const NavLinkContainer = styled.div`
         z-index: 1;
       }
       span {
-        padding-top: 3px;
         padding-left: 5px;
         padding-right: 5px;
-        font-weight: bold;
         z-index: 1;
       }
     `}
@@ -107,6 +105,7 @@ const SideIcons = styled.div`
 
 const Logo = styled.span`
   color: #fff;
+  font-size: large;
   text-decoration: none;
   cursor: pointer;
 `;
@@ -123,6 +122,11 @@ const StyledLink = styled.span`
   svg {
     margin-left: 5px;
   }
+`;
+
+const LogoImg = styled.img`
+  width: 30px;
+  height: 30px;
 `;
 
 export default function BottomNav() {
@@ -161,7 +165,6 @@ export default function BottomNav() {
   return (
     <StyledHeader>
       <Head>
-        {/* Set the title dynamically based on the current path */}
         <title>{getTitle(router.pathname, cartProducts)}</title>
       </Head>
       <Center>

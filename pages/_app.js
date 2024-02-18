@@ -7,22 +7,17 @@ const GlobalStyles = createGlobalStyle`
     background-color: #eee;
     padding: 0;
     margin: 0;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Fredoka", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings:
+    "wdth" 100;
   }
   hr {
     display: block;
     border: 0;
     border-top: 1px solid #ccc;
   }
-
-  .highlight {
-  position: absolute;
-  bottom: 0;
-  height: 4px; // Adjust as needed
-  background-color: #fff;
-  transition: left 0.3s ease, width 0.3s ease; // Smooth transition for movement and resizing
-}
-
 
   .desktop-header {
   display: none;
