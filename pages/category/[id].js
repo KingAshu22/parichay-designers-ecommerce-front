@@ -1,3 +1,4 @@
+import BottomNav from "@/components/BottomNav";
 import Center from "@/components/Center";
 import Header from "@/components/Header";
 import ProductsGrid from "@/components/ProductsGrid";
@@ -89,7 +90,12 @@ export default function CategoryPage({
 
   return (
     <>
-      <Header />
+      <div className="desktop-header">
+        <Header />
+      </div>
+      <div className="mobile-bottom-nav">
+        <BottomNav />
+      </div>
       <Center>
         <CategoryHeader>
           <h1>{category.name}</h1>

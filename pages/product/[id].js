@@ -1,3 +1,4 @@
+import BottomNav from "@/components/BottomNav";
 import { CartContext } from "@/components/CartContext";
 import Center from "@/components/Center";
 import FlyingButton from "@/components/FlyingButton";
@@ -34,7 +35,12 @@ const Price = styled.span`
 export default function ProductPage({ product }) {
   return (
     <>
-      <Header />
+      <div className="desktop-header">
+        <Header />
+      </div>
+      <div className="mobile-bottom-nav">
+        <BottomNav />
+      </div>
       <Center>
         <ColWrapper>
           <WhiteBox>
