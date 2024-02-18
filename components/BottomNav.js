@@ -11,6 +11,7 @@ import CartIcon from "./icons/CartIcon";
 import { useRouter } from "next/router";
 import CategoryIcon from "./icons/CategoryIcon";
 import { useSession } from "next-auth/react";
+import Head from "next/head"; // Import Head component from next/head
 
 const StyledHeader = styled.header`
   background-color: #222;
@@ -39,7 +40,7 @@ const BottomNavs = styled.nav`
 
 const NavLinkContainer = styled.div`
   position: relative;
-  display: block;
+  display: inline-flex;
   color: #aaa;
   text-decoration: none;
   svg {
@@ -57,11 +58,20 @@ const NavLinkContainer = styled.div`
         width: 60px;
         height: 40px;
         background-color: #fff;
-        border-radius: 20%;
+        padding-right: 50px;
+        padding-left: 10px;
+        border-radius: 12%;
       }
       svg {
         color: #000;
         position: relative;
+        z-index: 1;
+      }
+      span {
+        padding-top: 3px;
+        padding-left: 5px;
+        padding-right: 5px;
+        font-weight: bold;
         z-index: 1;
       }
     `}
@@ -95,6 +105,26 @@ const SideIcons = styled.div`
   }
 `;
 
+const Logo = styled.span`
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+`;
+
+const StyledLink = styled.span`
+  display: inline-flex;
+  color: #000;
+  text-decoration: none;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  padding: 5px;
+  cursor: pointer;
+  svg {
+    margin-left: 5px;
+  }
+`;
+
 export default function BottomNav() {
   const { cartProducts } = useContext(CartContext);
   const [name, setName] = useState("Sign In");
@@ -108,11 +138,39 @@ export default function BottomNav() {
 
   const router = useRouter();
 
+  // Function to get the title based on the path
+  function getTitle(path, cartProducts) {
+    switch (path) {
+      case "/":
+        return "Home | Parichay Designer";
+      case "/products":
+        return "Products | Parichay Designer";
+      case "/search":
+        return "Search | Parichay Designer";
+      case "/categories":
+        return "Categories | Parichay Designer";
+      case "/bag":
+        return `Bag (${cartProducts.length}) | Parichay Designer`;
+      case "/account":
+        return "Account | Parichay Designer";
+      default:
+        return "Parichay Designer";
+    }
+  }
+
   return (
     <StyledHeader>
+      <Head>
+        {/* Set the title dynamically based on the current path */}
+        <title>{getTitle(router.pathname, cartProducts)}</title>
+      </Head>
       <Center>
         <Wrapper>
-          <Link href="/" passHref>
+          <Link
+            href="/"
+            passHref
+            style={{ textDecoration: "none", paddingTop: "10px" }}
+          >
             <Logo>Parichay Designer</Logo>
           </Link>
           <SideIcons>
@@ -135,12 +193,27 @@ export default function BottomNav() {
                 icon: <CategoryIcon />,
                 label: "Categories",
               },
-              { href: "/cart", icon: <CartIcon />, label: "Cart" },
-            ].map(({ href, icon }) => (
-              <Link key={href} href={href} passHref>
+              { href: "/bag", icon: <CartIcon />, label: "Bag" },
+            ].map(({ href, icon, label }) => (
+              <Link
+                key={href}
+                href={href}
+                style={{ textDecoration: "none" }}
+                passHref
+              >
                 <NavLinkContainer $active={router.pathname === href}>
                   {icon}
-                  {href === "/cart" && cartProducts.length > 0 && (
+                  {router.pathname === href && (
+                    <span
+                      style={{
+                        color: "#000",
+                        zIndex: 1000,
+                      }}
+                    >
+                      {label}
+                    </span>
+                  )}
+                  {href === "/bag" && cartProducts.length > 0 && (
                     <CartCount>{cartProducts.length}</CartCount>
                   )}
                 </NavLinkContainer>
@@ -152,22 +225,3 @@ export default function BottomNav() {
     </StyledHeader>
   );
 }
-
-const Logo = styled.span`
-  color: #fff;
-  text-decoration: none;
-  cursor: pointer;
-`;
-
-const StyledLink = styled.span`
-  display: inline-flex;
-  color: #000;
-  text-decoration: none;
-  font-family: "Poppins", sans-serif;
-  font-weight: 500;
-  font-size: 15px;
-  cursor: pointer;
-  svg {
-    margin-left: 5px;
-  }
-`;

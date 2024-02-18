@@ -134,7 +134,7 @@ export default function ProductBox({
         <PriceRow>
           <Price>₹{price}</Price>
           <FlyingButton _id={_id} src={images?.[0]}>
-            Add to Cart
+            Add to Bag
           </FlyingButton>
         </PriceRow>
       </ProductInfoBox>

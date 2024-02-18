@@ -71,7 +71,7 @@ const CityHolder = styled.div`
   gap: 5px;
 `;
 
-export default function CartPage() {
+export default function BagPage() {
   const router = useRouter();
   const { data: session } = useSession();
   const { cartProducts, addProduct, removeProduct, clearCart } =
@@ -194,7 +194,7 @@ export default function CartPage() {
         <ColumnsWrapper>
           <RevealWrapper delay={0}>
             <Box>
-              <h2>Cart</h2>
+              <h2>Bag</h2>
               {!cartProducts?.length && <div>Your cart is empty!</div>}
               {products?.length > 0 && (
                 <Table>

@@ -15,6 +15,15 @@ const GlobalStyles = createGlobalStyle`
     border-top: 1px solid #ccc;
   }
 
+  .highlight {
+  position: absolute;
+  bottom: 0;
+  height: 4px; // Adjust as needed
+  background-color: #fff;
+  transition: left 0.3s ease, width 0.3s ease; // Smooth transition for movement and resizing
+}
+
+
   .desktop-header {
   display: none;
 }

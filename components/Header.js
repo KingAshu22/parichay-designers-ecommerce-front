@@ -1,9 +1,11 @@
 import Link from "next/link";
-import styled from "styled-components"; // Corrected the import
+import styled from "styled-components";
 import Center from "./Center";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { CartContext } from "./CartContext";
 import SearchIcon from "./icons/SearchIcon";
+import { useRouter } from "next/router"; // Import useRouter hook from next/router
+import Head from "next/head";
 
 const StyledHeader = styled.header`
   background-color: #222;
@@ -27,7 +29,7 @@ const Wrapper = styled.div`
 `;
 
 const StyledNav = styled.nav`
-  display: "block";
+  display: block;
   gap: 15px;
   position: fixed;
   top: 0;
@@ -46,7 +48,7 @@ const StyledNav = styled.nav`
 const NavLink = styled.span`
   display: block;
   color: #aaa;
-  text-decoration: none; // Ensure no underline
+  text-decoration: none;
   cursor: pointer;
   svg {
     padding-top: 10%;
@@ -64,8 +66,8 @@ const SideIcons = styled.div`
   svg {
     width: 14px;
     height: 14px;
-    color: white; // Ensure SVG icons are white
-    cursor: pointer; // Make icons look clickable
+    color: white;
+    cursor: pointer;
   }
 `;
 
@@ -75,16 +77,42 @@ const Links = styled(Link)`
 
 export default function Header() {
   const { cartProducts } = useContext(CartContext);
+  const router = useRouter(); // Get the router object
+
+  // Define a function to get the title based on the current path
+  const getPageTitle = (path) => {
+    switch (path) {
+      case "/":
+        return "Home | Parichay Designer";
+      case "/products":
+        return "Products | Parichay Designer";
+      case "/categories":
+        return "Categories | Parichay Designer";
+      case "/account":
+        return "Account | Parichay Designer";
+      case "/bag":
+        return `Bag (${cartProducts.length}) | Parichay Designer`;
+      default:
+        return "Parichay Designer";
+    }
+  };
+
+  // Get the current path using router.pathname
+  const currentPath = router.pathname;
 
   return (
     <StyledHeader>
+      <Head>
+        {/* Set the title dynamically based on the current path */}
+        <title>{getPageTitle(currentPath)}</title>
+      </Head>
       <Center>
         <Wrapper>
           <Links href="/" passHref>
             <Logo>Parichay Designer</Logo>
           </Links>
           <StyledNav>
-            {["/", "/products", "/categories", "/account", "/cart"].map(
+            {["/", "/products", "/categories", "/account", "/bag"].map(
               (path, index) => (
                 <Links key={index} href={path} passHref>
                   <NavLink>
@@ -92,7 +120,7 @@ export default function Header() {
                     {path === "/products" && "All Products"}
                     {path === "/categories" && "Categories"}
                     {path === "/account" && "Account"}
-                    {path === "/cart" && `Cart (${cartProducts.length})`}
+                    {path === "/bag" && `Bag (${cartProducts.length})`}
                   </NavLink>
                 </Links>
               )

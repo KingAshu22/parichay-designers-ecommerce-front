@@ -12,6 +12,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { RevealWrapper } from "next-reveal";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import BottomNav from "@/components/BottomNav";
 
 const ColsWrapper = styled.div`
   display: grid;
@@ -111,7 +112,12 @@ export default function AccountPage() {
 
   return (
     <>
-      <Header />
+      <div className="desktop-header">
+        <Header />
+      </div>
+      <div className="mobile-bottom-nav">
+        <BottomNav />
+      </div>
       <Center>
         <ColsWrapper>
           <div>

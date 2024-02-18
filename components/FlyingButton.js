@@ -40,6 +40,20 @@ const FlyingButtonWrapper = styled.div`
       max-height: 50px;
     }
   }
+
+  @media (max-width: 768px) {
+    @keyframes fly {
+      100% {
+        top: 100%;
+        bottom: 0;
+        left: 100%;
+        opacity: 0;
+        display: none;
+        max-width: 50px;
+        max-height: 50px;
+      }
+    }
+  }
   img {
     display: none;
     max-width: 150px;
