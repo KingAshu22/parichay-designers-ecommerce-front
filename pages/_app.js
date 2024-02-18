@@ -23,7 +23,7 @@ const GlobalStyles = createGlobalStyle`
   display: block;
 }
 
-@media (min-width: 768px) { // Adjust the breakpoint as needed
+@media (min-width: 768px) {
   .desktop-header {
     display: block;
   }

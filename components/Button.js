@@ -17,6 +17,8 @@ export const ButtonStyle = css`
     margin-right: 5px;
   }
   box-sizing: border-box;
+  background-color: ${(props) => (props.white ? "#fff" : "#000")};
+  color: ${(props) => (props.white ? "#000" : "#fff")};
   ${(props) =>
     props.white &&
     !props.outline &&

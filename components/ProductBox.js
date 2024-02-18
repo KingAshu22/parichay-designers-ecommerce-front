@@ -1,14 +1,15 @@
-import { styled } from "styled-components";
+import styled from "styled-components";
 import Link from "next/link";
 import FlyingButton from "./FlyingButton";
 import HeartOutlineIcon from "./icons/HeartOutlineIcon";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import HeartSolidIcon from "./icons/HeartSolidIcon";
 import axios from "axios";
 
 const ProductWrapper = styled.div``;
 
-const WhiteBox = styled(Link)`
+const WhiteBox = styled.div`
+  // Changed to div
   background-color: #fff;
   padding: 20px;
   height: 120px;
@@ -24,7 +25,8 @@ const WhiteBox = styled(Link)`
   }
 `;
 
-const Title = styled(Link)`
+const Title = styled.div`
+  // Changed to div for styling
   font-weight: normal;
   font-size: 0.9rem;
   color: inherit;
@@ -65,7 +67,7 @@ const Price = styled.div`
 
 const WishlistButton = styled.button`
   border: 0;
-  width: 40px !important;
+  width: 40px;
   height: 40px;
   padding: 10px;
   position: absolute;
@@ -73,14 +75,20 @@ const WishlistButton = styled.button`
   right: 0;
   background: transparent;
   cursor: pointer;
-  ${(props) => (props.wished ? `color: red` : `color: black`)};
+  color: ${(props) =>
+    props.$isWished ? "red" : "black"}; // Using transient prop
   svg {
     width: 16px;
+    &:hover {
+      width: 20px;
+      height: 20px;
+    }
   }
-  svg:hover {
-    width: 20px;
-    height: 20px;
-  }
+`;
+
+const Links = styled(Link)`
+  text-decoration: none;
+  color: inherit;
 `;
 
 export default function ProductBox({
@@ -98,7 +106,7 @@ export default function ProductBox({
     ev.preventDefault();
     ev.stopPropagation();
     const nextValue = !isWished;
-    if (nextValue === false && onRemoveFromWishlist) {
+    if (!nextValue && onRemoveFromWishlist) {
       onRemoveFromWishlist(_id);
     }
     axios
@@ -111,16 +119,18 @@ export default function ProductBox({
 
   return (
     <ProductWrapper>
-      <WhiteBox href={url}>
-        <div>
-          <WishlistButton wished={isWished} onClick={addToWishlist}>
+      <Link href={url} passHref>
+        <WhiteBox>
+          <WishlistButton $isWished={isWished} onClick={addToWishlist}>
             {isWished ? <HeartSolidIcon /> : <HeartOutlineIcon />}
           </WishlistButton>
-          <img src={images?.[0]} />
-        </div>
-      </WhiteBox>
+          <img src={images?.[0]} alt="Product" />
+        </WhiteBox>
+      </Link>
       <ProductInfoBox>
-        <Title href={url}>{title}</Title>
+        <Links href={url} passHref>
+          <Title>{title}</Title>
+        </Links>
         <PriceRow>
           <Price>₹{price}</Price>
           <FlyingButton _id={_id} src={images?.[0]}>

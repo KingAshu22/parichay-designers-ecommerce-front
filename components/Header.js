@@ -1,9 +1,8 @@
 import Link from "next/link";
-import { styled } from "styled-components";
+import styled from "styled-components"; // Corrected the import
 import Center from "./Center";
 import { useContext, useState } from "react";
 import { CartContext } from "./CartContext";
-import BarsIcon from "./icons/Bars";
 import SearchIcon from "./icons/SearchIcon";
 
 const StyledHeader = styled.header`
@@ -13,11 +12,12 @@ const StyledHeader = styled.header`
   z-index: 10;
 `;
 
-const Logo = styled(Link)`
+const Logo = styled.span`
   color: #fff;
   text-decoration: none;
   position: relative;
   z-index: 3;
+  cursor: pointer;
 `;
 
 const Wrapper = styled.div`
@@ -27,14 +27,7 @@ const Wrapper = styled.div`
 `;
 
 const StyledNav = styled.nav`
-  ${(props) =>
-    props.mobileNavActive
-      ? `
-    display: block;
-  `
-      : `
-    display: none;
-  `};
+  display: "block";
   gap: 15px;
   position: fixed;
   top: 0;
@@ -50,11 +43,11 @@ const StyledNav = styled.nav`
   }
 `;
 
-const NavLink = styled(Link)`
+const NavLink = styled.span`
   display: block;
   color: #aaa;
-  text-decoration: none;
-  min-width: 30px;
+  text-decoration: none; // Ensure no underline
+  cursor: pointer;
   svg {
     padding-top: 10%;
     height: 20px;
@@ -65,56 +58,50 @@ const NavLink = styled(Link)`
   }
 `;
 
-const NavButton = styled.button`
-  background-color: transparent;
-  width: 30px;
-  height: 30px;
-  border: 0;
-  color: white;
-  cursor: pointer;
-  position: relative;
-  z-index: 3;
-  @media screen and (min-width: 768px) {
-    display: none;
-  }
-`;
-
 const SideIcons = styled.div`
   display: flex;
   align-items: center;
-  a {
-    display: inline-block;
-    min-width: 20px;
-    color: white;
-    svg {
-      width: 14px;
-      height: 14px;
-    }
+  svg {
+    width: 14px;
+    height: 14px;
+    color: white; // Ensure SVG icons are white
+    cursor: pointer; // Make icons look clickable
   }
+`;
+
+const Links = styled(Link)`
+  text-decoration: none;
 `;
 
 export default function Header() {
   const { cartProducts } = useContext(CartContext);
-  const [mobileNavActive, setMobileNavActive] = useState(false);
+
   return (
     <StyledHeader>
       <Center>
         <Wrapper>
-          <Logo href={"/"}>Parichay Designer</Logo>
-          <StyledNav mobileNavActive={mobileNavActive}>
-            <NavLink href={"/"}>Home</NavLink>
-            <NavLink href={"/products"}>All Products</NavLink>
-            <NavLink href={"/categories"}>Categories</NavLink>
-            <NavLink href={"/account"}>Account</NavLink>
-            <NavLink href={"/cart"}>Cart ({cartProducts.length})</NavLink>
+          <Links href="/" passHref>
+            <Logo>Parichay Designer</Logo>
+          </Links>
+          <StyledNav>
+            {["/", "/products", "/categories", "/account", "/cart"].map(
+              (path, index) => (
+                <Links key={index} href={path} passHref>
+                  <NavLink>
+                    {path === "/" && "Home"}
+                    {path === "/products" && "All Products"}
+                    {path === "/categories" && "Categories"}
+                    {path === "/account" && "Account"}
+                    {path === "/cart" && `Cart (${cartProducts.length})`}
+                  </NavLink>
+                </Links>
+              )
+            )}
           </StyledNav>
           <SideIcons>
-            <Link href={"/search"}>
+            <Links href="/search" passHref>
               <SearchIcon />
-            </Link>
-            <NavButton onClick={() => setMobileNavActive((prev) => !prev)}>
-              <BarsIcon />
-            </NavButton>
+            </Links>
           </SideIcons>
         </Wrapper>
       </Center>

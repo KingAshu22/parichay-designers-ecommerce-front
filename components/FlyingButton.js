@@ -19,6 +19,9 @@ const FlyingButtonWrapper = styled.div`
       color: ${primary};
       border: 1px solid ${primary};
     `}
+
+  background-color: ${(props) => (props.white ? "#fff" : "#000")};
+    color: ${(props) => (props.white ? "#000" : "#fff")};
     ${(props) =>
       props.white &&
       `

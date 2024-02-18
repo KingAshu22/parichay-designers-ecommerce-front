@@ -77,12 +77,12 @@ export default function Featured({ product }) {
                   <ButtonLink
                     href={"/product/" + product._id}
                     outline={1}
-                    white={1}
+                    $white
                   >
                     Read More
                   </ButtonLink>
                   <FlyingButton
-                    white={1}
+                    $white
                     _id={product._id}
                     src={product.images?.[0]}
                   >
