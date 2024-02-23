@@ -11,8 +11,8 @@ const ProductWrapper = styled.div``;
 const WhiteBox = styled.div`
   // Changed to div
   background-color: #fff;
-  padding: 20px;
-  height: 120px;
+  padding: 5px;
+  height: 230px;
   text-align: center;
   display: flex;
   align-items: center;
@@ -20,8 +20,8 @@ const WhiteBox = styled.div`
   border-radius: 10px;
   position: relative;
   img {
-    max-width: 100%;
-    max-height: 140px;
+    max-width: 170px;
+    max-height: 256px;
   }
 `;
 

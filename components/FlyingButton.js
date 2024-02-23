@@ -51,6 +51,7 @@ const FlyingButtonWrapper = styled.div`
         display: none;
         max-width: 50px;
         max-height: 50px;
+        z-index: 100;
       }
     }
   }

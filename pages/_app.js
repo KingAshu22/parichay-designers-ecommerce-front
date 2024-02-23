@@ -48,6 +48,7 @@ export default function App({
       <SessionProvider session={session}>
         <CartContextProvider>
           <Component {...pageProps} />
+          <div style={{ paddingTop: "250px" }}></div>
         </CartContextProvider>
       </SessionProvider>
     </>
