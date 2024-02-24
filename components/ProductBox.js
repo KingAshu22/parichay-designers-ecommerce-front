@@ -10,7 +10,7 @@ const ProductWrapper = styled.div``;
 
 const WhiteBox = styled.div`
   // Changed to div
-  background-color: #fff;
+  background-color: transparent;
   padding: 5px;
   height: 230px;
   text-align: center;
@@ -20,8 +20,10 @@ const WhiteBox = styled.div`
   border-radius: 10px;
   position: relative;
   img {
-    max-width: 170px;
+    max-width: 185px;
     max-height: 256px;
+    border-radius: 10px;
+    margin-bottom: 20px;
   }
 `;
 
@@ -71,14 +73,14 @@ const WishlistButton = styled.button`
   height: 40px;
   padding: 10px;
   position: absolute;
-  top: 0;
+  top: -20px;
   right: 0;
   background: transparent;
   cursor: pointer;
   color: ${(props) =>
     props.$isWished ? "red" : "black"}; // Using transient prop
   svg {
-    width: 16px;
+    width: 20px;
     &:hover {
       width: 20px;
       height: 20px;

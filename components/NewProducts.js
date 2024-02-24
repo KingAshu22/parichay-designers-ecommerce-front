@@ -10,7 +10,7 @@ const Title = styled.h2`
 
 export default function NewProducts({ products, wishedProducts }) {
   return (
-    <div>
+    <div style={{ margin: "100px 0" }}>
       <Center>
         <Title>New Arrivals</Title>
         <ProductsGrid products={products} wishedProducts={wishedProducts} />
